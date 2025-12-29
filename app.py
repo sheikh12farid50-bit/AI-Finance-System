@@ -1,7 +1,6 @@
 
 from newsapi import NewsApiClient
 
-NEWS_API = "d1f7d32943da48d6bbec3299614a2c76"
 
 import numpy as np
 import streamlit as st
@@ -612,6 +611,7 @@ try:
 except Exception as e:
     st.error("Failed to load news ⚠️")
     st.write(e)
+
 
 
 
