@@ -4,7 +4,6 @@ from newsapi import NewsApiClient
 NEWS_API = "d1f7d32943da48d6bbec3299614a2c76"
 newsapi = NewsApiClient(api_key=NEWS_API)
 
-from nsetools import Nse
 
 import numpy as np
 import streamlit as st
@@ -14,6 +13,7 @@ import json
 import os
 import io
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
 
 # ================= AUTO REFRESH ONLY DATA =================
 @st.cache_data(ttl=10)   # Har 10 second me sirf price refresh
@@ -44,8 +44,14 @@ def load_portfolio():
 
 portfolio = load_portfolio()
 
-data = nse.get_quote('RELIANCE')
-st.write(data)
+import yfinance as yf
+
+stock = "RELIANCE.NS"       # Indian NSE ke liye .NS zaroori
+ticker = yf.Ticker(stock)
+data = ticker.history(period="1d")
+
+st.subheader("📈 Live Indian Stock Price")
+st.write("Current Price:", data["Close"][0])
 
 # ================= DELETE STOCK =================
 if len(portfolio) > 0:
